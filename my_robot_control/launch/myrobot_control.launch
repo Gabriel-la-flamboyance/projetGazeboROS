@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+ <!-- liaison avec les différents fichiers de configuration-->
+ <arg name="model" default="$(find my_robot_gazebo)/urdf/description.xacro"/>
+ 
+ <rosparam command="load"
+ file="$(find my_robot_control)/config/joint_state_controller.yaml"
+ ns="state_controller" />
+ <rosparam command="load"
+ file="$(find my_robot_control)/config/diff_drive_controller.yaml"
+ />
+ 
+ <node name="my_robot_controller_spawner" pkg="controller_manager" type="spawner"
+ args="state_controller
+ velocity_controller
+"/>
+
+ <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
+        
+</launch>

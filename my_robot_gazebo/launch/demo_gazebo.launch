@@ -1,0 +1,16 @@
+<!--fichier permetent de crée l'environement de simulation sous Gazebo-->
+<launch>
+  <arg name="model" default="$(find my_robot_gazebo)/urdf/description.xacro"/><!--fichier de création du model robot-->
+  <arg name="rvizconfig" default="$(find my_robot_gazebo)/rviz/urdf.rviz" /><!-- fichier de notre configuration sous RVIZ-->
+    
+  <include file="$(find my_robot_gazebo)/launch/gazebo.launch"><!--fichier permettant de faire spawn le robot sous Gazebo-->
+    <arg name="model" value="$(arg model)" />
+  </include>
+ 
+ <!--node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" /-->
+ 
+  <include file="$(find my_robot_control)/launch/myrobot_control.launch"><!--fichier des controleur du projet -->
+    <arg name="model" value="$(arg model)" />
+  </include>
+ 
+</launch>
